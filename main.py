@@ -38,9 +38,7 @@ def create_dataframe(data):
         planet_dict = {
             "Name": dt.name,
             "Population": dt.population,
-            "Terrain": dt.terrain,
             "Climate": dt.climate,
-            "Gravity": dt.gravity
         }
         planets_list.append(planet_dict)
 
