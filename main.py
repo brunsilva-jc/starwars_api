@@ -6,18 +6,7 @@ import pandas as pd
 
 base_url = "https://swapi.dev/api/"
 
-
-films_endpoint = "films/"
-
 planets_endpoint = "planets/"
-
-people_endpoint = "people/"
-
-species_endpoint = "species/"
-
-vehicles_endpoint = "vehicles/"
-
-species_endpoint = "species/"
 
 def main():
     planets_list = []
@@ -36,21 +25,26 @@ def main():
             planetData = Planet(name, climate, terrain, population, gravity)
             planets_list.append(planetData)
 
-            print(f"Planet: {name}\nClimate: {climate}\n"
-                  f"Gravity: {gravity}\nPopulation: {population}\n"
-                  f"Terreno: {terrain}\n")
-            print('====================================================================')
-    create_dataframe(planets_list)
+        data_planets = create_dataframe(planets_list)
+        print(data_planets)
 
-
+    else:
+        print(f"Erro: {response.status_code}")
 
 #showing dataframe for population on planets
 def create_dataframe(data):
-    planets_dict = {}
+    planets_list = []
     for dt in data:
-        planets_dict.setdefault(dt.name, dt)
+        planet_dict = {
+            "Name": dt.name,
+            "Population": dt.population,
+            "Terrain": dt.terrain,
+            "Climate": dt.climate,
+            "Gravity": dt.gravity
+        }
+        planets_list.append(planet_dict)
 
-    planets_dataframe = pd.DataFrame(data=data)
-    print(planets_dataframe)
+    planets_dataframe = pd.DataFrame(planets_list)
+    return planets_dataframe
 
 main()
